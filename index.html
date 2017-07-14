@@ -1,0 +1,38 @@
+<!doctype html>
+<!--
+
+-->
+<head>
+<meta charset="utf-8">
+<title>Color Cfg</title>
+<link rel="stylesheet" href="static/colorcfg/css/main.css">
+<link rel="stylesheet" href="static/colorcfg/css/colorcfg.css">
+<link rel="stylesheet" href="static/colorcfg/css/colorcfg_slider.css">
+<script src="static/colorcfg/js/d3.v4.min.js"></script>
+<script src="static/colorcfg/js/colorcfg_data.js"></script>
+<script src="static/colorcfg/js/colorcfg.js"></script>
+<script>
+//	console.log=function(msg){}
+	var doneCB=function(e){
+		d3.select('#colorcfg_main').style('display','none');
+		document.getElementById("bg").innerHTML+=colorcfg.getColorsList();
+	}
+	var showCB=function(e){
+		colorcfg.show(doneCB);
+	}
+	var init=function(){
+		colorcfg=new ColorCfg(doneCB);
+		window.onresize();
+	}
+	window.onresize=function(){
+		colorcfg.recenter();
+	}
+</script>
+</head>
+<body onload='init()'>
+	<div id="bg" class="bg">
+		<button id="showB" onclick="showCB()">Show</button>
+		<br><br>
+	</div>
+</body>
+</html>
