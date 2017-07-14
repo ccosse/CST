@@ -1,18 +1,3 @@
-/**********************************************************
-
-    Author          :Charles B. Cossé
-
-    Organization    :Asymptopia Software | Software@theLimit
-
-    Website         :www.asymptopia.org
-
-    Email           :ccosse@gmail.com
-
-    Copyright       :(C) 2017 Asymptopia Software
-
-    License         :Apache 2.0
-
-***********************************************************/
 var ColorCfg=function(doneCB){
 	me={}
 	me.cfg=null;
@@ -45,7 +30,7 @@ var ColorCfg=function(doneCB){
 	};
 	//https://stackoverflow.com/questions/7374911/reading-file-with-xmlhttprequest-results-in-error-console-entry
 	xhttp.overrideMimeType('text/plain');
-	xhttp.open("GET", "./static/colorcfg/js/base.html", true);//test for localhost? ./static won't work on server.
+	xhttp.open("GET", "./static/CST/js/base.html", true);//test for localhost? ./static won't work on server.
 	xhttp.send();
 
 	me.resetCB=function(){
@@ -93,7 +78,7 @@ var ColorCfg=function(doneCB){
 		};
 		//https://stackoverflow.com/questions/7374911/reading-file-with-xmlhttprequest-results-in-error-console-entry
 		xhttp.overrideMimeType('text/plain');
-		xhttp.open("GET", "./static/colorcfg/js/widget.html", true);//test for localhost? ./static won't work on server.
+		xhttp.open("GET", "./static/CST/js/widget.html", true);//test for localhost? ./static won't work on server.
 		xhttp.send();
 
 		d3.timeout(me.assign_ids,100);//This is a one-time call
