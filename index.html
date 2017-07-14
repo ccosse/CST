@@ -10,15 +10,15 @@
 <script src="static/CST/js/colorcfg.js"></script>
 <script>
 //	console.log=function(msg){}
-	var doneCB=function(e){
+	var cst_doneCB=function(e){
 		d3.select('#colorcfg_main').style('display','none');
 		document.getElementById("bg").innerHTML+=colorcfg.getColorsList();
 	}
-	var showCB=function(e){
-		colorcfg.show(doneCB);
+	var cst_showCB=function(e){
+		colorcfg.show(cst_doneCB);
 	}
-	var init=function(){
-		colorcfg=new ColorCfg(doneCB);
+	var cst_init=function(){
+		cst=colorcfg=new ColorCfg(cst_doneCB);
 		window.onresize();
 	}
 	window.onresize=function(){
@@ -26,9 +26,9 @@
 	}
 </script>
 </head>
-<body onload='init()'>
+<body onload='cst_init()'>
 	<div id="bg" class="bg">
-		<button id="showB" onclick="showCB()">CST</button>
+		<button id="showB" onclick="cst_showCB()">CST</button>
 		<br><br>
 	</div>
 </body>

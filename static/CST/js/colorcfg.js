@@ -1,5 +1,5 @@
 var ColorCfg=function(doneCB){
-	me={}
+	var me={}
 	me.cfg=null;
 	me.widget_prefixes=[];
 	me.slider_suffs=['_3','_4','_7','_8'];
@@ -14,24 +14,59 @@ var ColorCfg=function(doneCB){
 	else{
 		me.doneCB=function(){
 			d3.select("#colorcfg_main").style('display','none');
-			colormyworld.update_styles();
+//			colormyworld.update_styles();
 		}
 	}
 
 	//load an html template using AJAX to localhost
 	//mysteriously quit working on chrome, hence the "else" clause (which relies on #include @index.html)
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
+/*
+	var cst_xhttp = new XMLHttpRequest();
+	cst_xhttp.onreadystatechange = function() {
 		//http://forums.mozillazine.org/viewtopic.php?f=25&t=1134615
-		if (xhttp.readyState == 4 && (xhttp.status == 200 || xhttp.status == 0)) {
-			document.body.innerHTML+=xhttp.responseText;//base_html
+		if (cst_xhttp.readyState == 4 && (cst_xhttp.status == 200 || cst_xhttp.status == 0)) {
+			console.log("success importing base.html");
+			document.body.innerHTML+=cst_xhttp.responseText;//base_html
+			console.log("cst appended",cst_xhttp.responseText);
 		}
-//		else document.body.innerHTML+=base_html;
+		else{
+			console.log("don't load this ... would result in multiple appends");
+//			document.body.innerHTML+=base_html;
+		}
 	};
 	//https://stackoverflow.com/questions/7374911/reading-file-with-xmlhttprequest-results-in-error-console-entry
-	xhttp.overrideMimeType('text/plain');
-	xhttp.open("GET", "./static/CST/js/base.html", true);//test for localhost? ./static won't work on server.
-	xhttp.send();
+	cst_xhttp.overrideMimeType('text/plain');
+	cst_xhttp.open("GET", "/static/CST/static/CST/js/base.html", true);//test for localhost? ./static won't work on server.
+	cst_xhttp.send();
+*/
+var base_html="\
+<div class='animate' id='colorcfg_main' style='position:absolute;top:0px;width:100%;height:100%;z-index:10;display:none;'>\
+<div class='row'>\
+\
+	<div class='column' id='column1'>\
+		<div class='card'>\
+			<div id='container1' class='container container1'>\
+			</div>\
+		</div>\
+	</div>\
+\
+	<div class='column' id='column2'>\
+		<div class='card'>\
+			<div id='container2' class='container container2'>\
+				<table id='widget_table' class='cp_table'>\
+				</table>\
+				<hr/>\
+				<button class='ccbutton' onclick='cst.newSequenceCB()'>New Sequence</button>\
+				<button class='ccbutton' onclick='cst.resetCB()'>Reset</button>\
+			</div>\
+		</div>\
+	</div>\
+\
+</div>\
+<button class='ccbutton' id='doneB' onclick='cst.doneCB()'>Done</button>\
+</div>\
+"
+document.body.innerHTML+=base_html;
 
 	me.resetCB=function(){
 		console.log('resetCB');
@@ -78,7 +113,7 @@ var ColorCfg=function(doneCB){
 		};
 		//https://stackoverflow.com/questions/7374911/reading-file-with-xmlhttprequest-results-in-error-console-entry
 		xhttp.overrideMimeType('text/plain');
-		xhttp.open("GET", "./static/CST/js/widget.html", true);//test for localhost? ./static won't work on server.
+		xhttp.open("GET", "/static/CST/static/CST/js/widget.html", true);//test for localhost? ./static won't work on server.
 		xhttp.send();
 
 		d3.timeout(me.assign_ids,100);//This is a one-time call
@@ -318,3 +353,4 @@ var ColorCfg=function(doneCB){
 	return me;
 }
 var colorcfg;
+var cst;
