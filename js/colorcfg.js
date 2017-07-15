@@ -20,7 +20,7 @@ var ColorCfg=function(doneCB){
 
 	//load an html template using AJAX to localhost
 	//mysteriously quit working on chrome, hence the "else" clause (which relies on #include @index.html)
-/*
+
 	var cst_xhttp = new XMLHttpRequest();
 	cst_xhttp.onreadystatechange = function() {
 		//http://forums.mozillazine.org/viewtopic.php?f=25&t=1134615
@@ -36,9 +36,9 @@ var ColorCfg=function(doneCB){
 	};
 	//https://stackoverflow.com/questions/7374911/reading-file-with-xmlhttprequest-results-in-error-console-entry
 	cst_xhttp.overrideMimeType('text/plain');
-	cst_xhttp.open("GET", "/static/CST/static/CST/js/base.html", true);//test for localhost? ./static won't work on server.
+	cst_xhttp.open("GET", "/static/CST/js/base.html", true);//test for localhost? ./static won't work on server.
 	cst_xhttp.send();
-*/
+
 var base_html="\
 <div class='animate' id='colorcfg_main' style='position:absolute;top:0px;width:100%;height:100%;z-index:10;display:none;'>\
 <div class='row'>\
@@ -66,8 +66,9 @@ var base_html="\
 <button class='ccbutton' id='doneB' onclick='cst.doneCB()'>Done</button>\
 </div>\
 "
+/*
 document.body.innerHTML+=base_html;
-
+*/
 	me.resetCB=function(){
 		console.log('resetCB');
 		d3.selectAll(".colorcfg")
@@ -98,7 +99,7 @@ document.body.innerHTML+=base_html;
 			me.cfg={'prefixes':[],'favorite_colors':[],};
 			window.localStorage['colorcfg']=JSON.stringify(me.cfg);
 		}
-
+/*
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && (xhttp.status == 200 || xhttp.status == 0)) {
@@ -115,6 +116,59 @@ document.body.innerHTML+=base_html;
 		xhttp.overrideMimeType('text/plain');
 		xhttp.open("GET", "/static/CST/static/CST/js/widget.html", true);//test for localhost? ./static won't work on server.
 		xhttp.send();
+*/
+var widget_html="\
+<table class='colorcfg_new cp_table'>\
+	<tbody>\
+		<tr>\
+			<td>\
+				<svg class='colorcfg_new swatch_svg'></svg>\
+			</td>\
+			<td class='vslide_cell'>\
+				<div class='colorcfg_wrapper rotate'>\
+					<input type='range' class='colorcfg_new num_swatch_slider vslide red' min='1' max='100' step='1' value='102'/>\
+				</div>\
+			</td>\
+			<td class='vslide_cell'>\
+				<div class='colorcfg_wrapper rotate'>\
+					<input type='range' class='colorcfg_new swatch_per_row_slider vslide red' min='1' max='25' step='1'/>\
+				</div>\
+			</td>\
+		</tr>\
+\
+		<tr>\
+			<td>\
+				<svg class='colorcfg_new widget_svg'></svg>\
+			</td>\
+			<td colSpan='2'>\
+				<button class='colorcfg_new rgb_cycle ccbutton'>RGB</button>\
+			</td>\
+			<td></td>\
+		</tr>\
+\
+		<tr>\
+			<td>\
+				<table width='100%'>\
+\
+					<input type='range' style='width:100%' class='colorcfg_new mu_slider hslide red' min='1' max='255' step='1'/>\
+					</td></tr><tr><td>\
+					<input type='range' style='width:100%' class='colorcfg_new sigma_slider hslide red' min='1' max='120' step='1'/>\
+					</td></tr>\
+				</table>\
+			</td>\
+			<td></td>\
+			<td></td>\
+		</tr>\
+	</tbody>\
+</table>\
+"
+d3.selectAll("#widget_table")
+	.append('tr')
+	.append('td')
+	.append("div")
+		.attr('class','colorcfg_new')
+		.html(widget_html);
+
 
 		d3.timeout(me.assign_ids,100);//This is a one-time call
 
@@ -139,7 +193,7 @@ document.body.innerHTML+=base_html;
 
 	}
 	me.recenter=function(){
-		d3.select("#column2")
+		d3.selectAll("#column2")
 			.style('position','absolute')
 			.style('left',parseInt(window.innerWidth/2-400)+"px");
 	}
