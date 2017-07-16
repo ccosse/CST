@@ -83,7 +83,8 @@ document.body.innerHTML+=base_html;
 		while (s.length < size) s = "0" + s;
 		return s;
 	}
-	me.show=function(){
+	me.show=function(doneCB){
+		if(doneCB)me.doneCB=doneCB;
 		console.log("colorcfg.show")
 		window.clearTimeout(window.lastTimeout);
 		d3.select("#colorcfg_main").style("display","block");
@@ -295,7 +296,7 @@ d3.selectAll("#widget_table")
 		console.log("rgb_swatches");
 
 		me.cfg[prefix]['seq']=[];
-		var SEQUENTIAL=false;
+		var SEQUENTIAL=true;
 		var A_CHANNEL=255;
 		if(SEQUENTIAL){
 			for(var idx=0;idx<me.cfg[prefix]['num_swatch'];idx++){
