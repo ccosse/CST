@@ -335,7 +335,10 @@ d3.selectAll("#widget_table")
 				.attr("height", dx)
 				.style("fill",function(d){return d;})
 				.attr("x", function(d,i) { return dx*(i-NR*parseInt(i/NR) )})
-				.attr("y", function(d,i) { return dx*parseInt(i/NR) });
+				.attr("y", function(d,i) { return dx*parseInt(i/NR) })
+			.append("title")
+				.html(function(d){return d;})
+			;
 
 	}
 	me.getColorsList=function(){
