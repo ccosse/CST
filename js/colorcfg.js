@@ -337,7 +337,7 @@ d3.selectAll("#widget_table")
 				.attr("x", function(d,i) { return dx*(i-NR*parseInt(i/NR) )})
 				.attr("y", function(d,i) { return dx*parseInt(i/NR) })
 			.append("title")
-				.html(function(d){return d;})
+				.html(function(d){return color_convert.to_hex(d)+"&#013;"+d;})
 			;
 
 	}
