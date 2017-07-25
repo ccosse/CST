@@ -14,24 +14,14 @@ var ColorCfg=function(doneCB){
 	else{
 		me.doneCB=function(){
 			d3.select("#colorcfg_main").style('display','none');
-//			colormyworld.update_styles();
 		}
 	}
-
-	//load an html template using AJAX to localhost
-	//mysteriously quit working on chrome, hence the "else" clause (which relies on #include @index.html)
 
 	var cst_xhttp = new XMLHttpRequest();
 	cst_xhttp.onreadystatechange = function() {
 		//http://forums.mozillazine.org/viewtopic.php?f=25&t=1134615
 		if (cst_xhttp.readyState == 4 && (cst_xhttp.status == 200 || cst_xhttp.status == 0)) {
-			console.log("success importing base.html");
 			document.body.innerHTML+=cst_xhttp.responseText;//base_html
-			console.log("cst appended",cst_xhttp.responseText);
-		}
-		else{
-			console.log("don't load this ... would result in multiple appends");
-//			document.body.innerHTML+=base_html;
 		}
 	};
 	//https://stackoverflow.com/questions/7374911/reading-file-with-xmlhttprequest-results-in-error-console-entry
@@ -70,7 +60,6 @@ var base_html="\
 document.body.innerHTML+=base_html;
 */
 	me.resetCB=function(){
-		console.log('resetCB');
 		d3.selectAll(".colorcfg")
 			.attr('display',function(){console.log(this.id);return 'none';})
 			.remove();
@@ -85,7 +74,6 @@ document.body.innerHTML+=base_html;
 	}
 	me.show=function(doneCB){
 		if(doneCB)me.doneCB=doneCB;
-		console.log("colorcfg.show")
 		window.clearTimeout(window.lastTimeout);
 		d3.select("#colorcfg_main").style("display","block");
 		if(me.widget_prefixes.length<1)me.newSequenceCB();
@@ -96,7 +84,6 @@ document.body.innerHTML+=base_html;
 
 		//Initialize localStorage data if not already exist
 		if(!window.localStorage['colorcfg']){
-			console.log('newSequenceCB initializing localStorage data');
 			me.cfg={'prefixes':[],'favorite_colors':[],};
 			window.localStorage['colorcfg']=JSON.stringify(me.cfg);
 		}
@@ -177,8 +164,6 @@ d3.selectAll("#widget_table")
 	me.assign_ids=function(){
 		//Trick: select .colorcfg_new, define ids, then remove _new from .className.
 	//		w3.includeHTML();//pity this didn't work in Chroome w/d3 ... w3 couldn't find container1
-
-		console.log('assign_ids')
 		var count=0;
 		var common_id_prefix='configctrl_'+parseInt(Math.random()*1E7);
 		me.widget_prefixes.push(common_id_prefix);
@@ -199,10 +184,6 @@ d3.selectAll("#widget_table")
 			.style('left',parseInt(window.innerWidth/2-400)+"px");
 	}
 	me.update=function(prefix){
-		//update rgb curves and palettes
-		console.log('update: '+prefix);
-
-		//we only show R|G|B at a time, so data lives in localStorage
 		if(!me.cfg[prefix]){
 			me.cfg[prefix]={
 				'swatch_per_row':'7',
@@ -293,7 +274,6 @@ d3.selectAll("#widget_table")
 	}
 	me.rgb_swatches=function(prefix){
 		//remake this widget's sequence of swatches
-		console.log("rgb_swatches");
 
 		me.cfg[prefix]['seq']=[];
 		var SEQUENTIAL=true;
@@ -343,7 +323,6 @@ d3.selectAll("#widget_table")
 	}
 	me.getColorsList=function(){
 		if(!me.cfg || me.cfg['prefixes'].length==0){
-			console.log('me.cfg DNE yet');
 			return ["RGBA(49,53,99,255)","RGBA(51,76,101,255)","RGBA(54,99,103,255)","RGBA(57,123,105,255)","RGBA(60,146,108,255)","RGBA(63,170,110,255)","RGBA(66,193,112,255)"];
 		}
 		var prefix;
